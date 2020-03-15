@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Sangeetha Matrimony</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/admin-console">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" routerLink="/add-user">Add New User <span class="sr-only">(current)</span></a>
+      <!-- <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-12 border-right pt-2 pb-4">
+      <h5 class="mb-2">Filters</h5>
+      <form (ngSubmit)="applyFilter(f)" #f="ngForm">
+
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="form-group">
+          <label for="customRange3">Age</label>
+          <div>
+            <mv-slider class="w-80" name="age" [(value)]="value" [range]="true" [min]="18" [max]="80" [enabled]="enabled" (change)="change()"></mv-slider>
+          </div>
+          <div class="my-2">
+            <div>
+              Minimum age limit: <b>{{value[0]}}</b>
+            </div>
+            <div>
+              Maximum age limit: <b>{{value[1]}}</b>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="form-group">
+          <label for="customRange3">Education</label>
+          <div>
+            <ss-multiselect-dropdown name="education" ngModel [options]="myOptions" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          </div>
+        </div>
+        <hr />
+
+        <div class="form-group">
+          <label for="customRange3">Salary</label>
+          <div>
+            <mv-slider class="w-80" name="salary" [(value)]="salaryValue" [range]="true" [min]="10000" [max]="200000" [enabled]="enabled" (change)="change()"></mv-slider>
+          </div>
+          <div class="my-2">
+            <div>
+              Minimum sal: <b>{{salaryValue[0]}}</b>
+            </div>
+            <div>
+              Maximum sal: <b>{{salaryValue[1]}}</b>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-primary btn-block">
+            Apply Filter
+        </button>
+      </form>
+    </div>
+    <div class="col-md-9 col-12">
+      <div class="row">
+        <div class="col-md-4 col-12" *ngFor="let user of users">
+          <div class="card my-2">
+            <img src="https://static.thenounproject.com/png/17241-200.png" class=" card-img-top " alt="... " style="height: 250px;">
+            <div class="card-body ">
+              <h5 class="card-title ">{{user.name}}</h5>
+              <div class="card-text">
+                <div class="user-detail" title="{{user.age}}">
+                  <b>Age:</b> {{user.age}}
+                </div>
+                <div class="user-detail" title="{{user.education}}">
+                  <b>Qualification:</b> {{user.education}}
+                </div>
+                <div class="user-detail" title="{{user.salary}}">
+                  <b>Salary</b>: {{user.salary}}
+                </div>
+                <div class="user-detail" title="{{user.occupation_location}}">
+                  <b>Occupation:</b> {{user.occupation_location}}
+                </div>
+              </div>
+              <a routerLink="/user-detail/{{user.smid}}" class="mt-2 btn btn-primary ">View User details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

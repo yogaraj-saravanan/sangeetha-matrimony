@@ -1,35 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {AboutComponent} from "./about/about.component";
-import {CourseComponent} from "./course/course.component";
-import {CourseResolver} from "./services/course.resolver";
-import {LoginComponent} from './login/login.component';
+import { LoginComponent } from './login/login.component';
+import { AdminConsoleComponent } from './admin-console/admin-console.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
-    {
-        path: "",
-        component: HomeComponent
-
-    },
-    {
-        path: "about",
-        component: AboutComponent
-    },
-    {
-      path: "login",
-      component: LoginComponent
-    },
-    {
-        path: 'courses/:courseUrl',
-        component: CourseComponent,
-        resolve: {
-            course: CourseResolver
-        }
-    },
+    { path: 'login', component: LoginComponent },
+    { path: 'admin-console', component: AdminConsoleComponent },
+    { path: 'user-detail/:id', component: UserDetailComponent },
+    { path: 'add-user', component: AddUserComponent },
     {
         path: "**",
-        redirectTo: '/'
+        redirectTo: '/login'
     }
 ];
 

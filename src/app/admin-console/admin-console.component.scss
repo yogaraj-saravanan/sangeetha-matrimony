@@ -1,0 +1,27 @@
+label {
+  font-weight: 600;
+}
+
+.align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bg-primary {
+  border: 1px solid #E91E63;
+  background-color: #E91E63 !important;
+  color: white;
+}
+
+.btn-primary {
+  border: 1px solid #E91E63;
+  background-color: #E91E63 !important;
+  color: white;
+}
+
+.user-detail {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
