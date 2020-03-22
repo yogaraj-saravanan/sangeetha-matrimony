@@ -1,107 +1,206 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Sangeetha Matrimony</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" routerLink="/admin-console">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link active" routerLink="/add-user">Add New User <span class="sr-only">(current)</span></a>
-      <!-- <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Sangeetha Matrimony</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a routerLink="/admin-console" class="nav-link">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/add-user" class="nav-link">Add User</a>
+            </li>
+            <li class="nav-item" *ngIf="currentUser">
+                <a class="nav-link" routerLink="/user-detail">View User Activity</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown" *ngIf="currentUser">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Welcome {{currentUser.name}}
+              </a>
+                <div class="ml-auto dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" (click)="resetCurrentUser()">Reset Current User</a>
+                </div>
+            </li>
+        </ul>
     </div>
-  </div>
 </nav>
+
+
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 col-12 border-right pt-2 pb-4">
-      <h5 class="mb-2">Filters</h5>
-      <form (ngSubmit)="applyFilter(f)" #f="ngForm">
+    <div class="row">
 
-        <div class="form-group">
-          <label for="gender">Gender</label>
-          <div>
-            <div class="form-check form-check-inline">
-              <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio1" value="option1">
-              <label class="form-check-label" for="inlineRadio1">Male</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio2" value="option2">
-              <label class="form-check-label" for="inlineRadio2">Female</label>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="form-group">
-          <label for="customRange3">Age</label>
-          <div>
-            <mv-slider class="w-80" name="age" [(value)]="value" [range]="true" [min]="18" [max]="80" [enabled]="enabled" (change)="change()"></mv-slider>
-          </div>
-          <div class="my-2">
-            <div>
-              Minimum age limit: <b>{{value[0]}}</b>
-            </div>
-            <div>
-              Maximum age limit: <b>{{value[1]}}</b>
-            </div>
-          </div>
-        </div>
-        <hr />
 
-        <div class="form-group">
-          <label for="customRange3">Education</label>
-          <div>
-            <ss-multiselect-dropdown name="education" ngModel [options]="myOptions" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
-          </div>
+        <div [hidden]="currentUser" class="col-12 align-current-user">
+            <form (ngSubmit)="checkCurrentUser(fo)" class="my-3 p-5 border" #fo="ngForm">
+                <div class="form-group">
+                    <label for="Current User">Name / Phone Number / SI-ID</label>
+                    <input type="text" placeholder="search the user" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="currentUserSearchParam" />
+                </div>
+                <div *ngIf="currentUserPossiblities && currentUserPossiblities.length === 0 && fo.submitted" class="alert alert-danger" role="alert">
+                    No user found! Try again....
+                </div>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+            <div *ngIf="currentUserPossiblities.length" class="row align-items-center justify-content-center">
+                <div *ngFor="let user of currentUserPossiblities" class="card col-12 col-md-4 mx-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{user.smid}}</h6>
+                        <p class="card-text">{{user.age}}</p>
+                        <p class="card-text">{{user.occupation_location}}</p>
+                        <a class="btn btn-primary" (click)="loggedInUser(user, fo)">Select User</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <hr />
 
-        <div class="form-group">
-          <label for="customRange3">Salary</label>
-          <div>
-            <mv-slider class="w-80" name="salary" [(value)]="salaryValue" [range]="true" [min]="10000" [max]="200000" [enabled]="enabled" (change)="change()"></mv-slider>
-          </div>
-          <div class="my-2">
-            <div>
-              Minimum sal: <b>{{salaryValue[0]}}</b>
-            </div>
-            <div>
-              Maximum sal: <b>{{salaryValue[1]}}</b>
-            </div>
-          </div>
+
+
+        <div *ngIf="currentUser" class="col-md-2 col-12 border-right pt-2 pb-4">
+            <h5 class="mb-2">Filters</h5>
+            <form (ngSubmit)="applyFilter(f)" #f="ngForm">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio1" value="male">
+                            <label class="form-check-label" for="inlineRadio1">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="gender" ngModel class="form-check-input" type="radio" id="inlineRadio2" value="female">
+                            <label class="form-check-label" for="inlineRadio2">Female</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label for="customRange3">Age</label>
+                    <div>
+                        <mv-slider class="w-80" name="age" [(value)]="value" [range]="true" [min]="18" [max]="80" [enabled]="enabled" (change)="change()"></mv-slider>
+                    </div>
+                    <div class="my-2">
+                        <div>
+                            Minimum age limit: <b>{{value[0]}}</b>
+                        </div>
+                        <div>
+                            Maximum age limit: <b>{{value[1]}}</b>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    <label for="customRange3">Education</label>
+                    <div>
+                        <ss-multiselect-dropdown name="education" ngModel [options]="myOptions" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    <label for="customRange3">Salary</label>
+                    <div>
+                        <mv-slider class="w-80" name="salary" [(value)]="salaryValue" [range]="true" [min]="10000" [max]="200000" [enabled]="enabled" (change)="change()"></mv-slider>
+                    </div>
+                    <div class="my-2">
+                        <div>
+                            Minimum sal: <b>{{salaryValue[0]}}</b>
+                        </div>
+                        <div>
+                            Maximum sal: <b>{{salaryValue[1]}}</b>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <button type="submit" class="btn btn-primary btn-block">
+                  Apply Filter
+                </button>
+            </form>
         </div>
-        <hr />
-        <button type="submit" class="btn btn-primary btn-block">
-            Apply Filter
-        </button>
-      </form>
+
+
+
+        <div *ngIf="currentUser" class="col-md-9 col-12">
+            <div *ngIf="users && users.length > 0" class="row mt-2">
+                <h5 class="col-md-6 col-12"> Search Results: {{users && users.length}} users found </h5>
+                <div class="col-md-6 col-12 user-search">
+                    <span>Search User:</span>
+                    <input type="text" [(ngModel)]="searchParam" placeholder="Enter Name or SI-ID" />
+                    <button class="ml-2 btn btn-primary" (click)="searchUser(searchParam)">Search</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-12" *ngFor="let user of users">
+                    <div class="card my-2">
+                        <img src="https://static.thenounproject.com/png/17241-200.png" class=" card-img-top" alt="..." style="height: 250px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{user.name}}</h5>
+                            <div class="card-text">
+                                <div class="user-detail" title="{{user.age}}">
+                                    <b>SM-ID:</b> {{user.smid}}
+                                </div>
+                                <div class="user-detail" title="{{user.age}}">
+                                    <b>Age:</b> {{user.age}}
+                                </div>
+                                <div class="user-detail" title="{{user.education}}">
+                                    <b>Qualification:</b> {{user.education}}
+                                </div>
+                                <div class="user-detail" title="{{user.salary}}">
+                                    <b>Salary</b>: {{user.salary}}
+                                </div>
+                                <div class="user-detail" title="{{user.occupation_location}}">
+                                    <b>Occupation:</b> {{user.occupation_location}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <a [routerLink]="['/user-detail', user.id]" class="mt-2 btn btn-primary col-md-6 col-6">View User details</a>
+                            <button (click)="selectedUser(user)" data-toggle="modal" data-target="#sendWhatsappModal" class="mt-2 btn btn-outline col-md-6 col-6">Send to whatsapp</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="users && users.length===0" class="no-results">
+                    <h4>No users found! Please modify your filter criteria.</h4>
+                    <button class="btn btn-primary" (click)="getUsers()">Reset Filter!</button>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="col-md-9 col-12">
-      <div class="row">
-        <div class="col-md-4 col-12" *ngFor="let user of users">
-          <div class="card my-2">
-            <img src="https://static.thenounproject.com/png/17241-200.png" class=" card-img-top " alt="... " style="height: 250px;">
-            <div class="card-body ">
-              <h5 class="card-title ">{{user.name}}</h5>
-              <div class="card-text">
-                <div class="user-detail" title="{{user.age}}">
-                  <b>Age:</b> {{user.age}}
-                </div>
-                <div class="user-detail" title="{{user.education}}">
-                  <b>Qualification:</b> {{user.education}}
-                </div>
-                <div class="user-detail" title="{{user.salary}}">
-                  <b>Salary</b>: {{user.salary}}
-                </div>
-                <div class="user-detail" title="{{user.occupation_location}}">
-                  <b>Occupation:</b> {{user.occupation_location}}
-                </div>
-              </div>
-              <a routerLink="/user-detail/{{user.smid}}" class="mt-2 btn btn-primary ">View User details</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="sendWhatsappModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send details to user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-          </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="phoneNumber">Enter Whatsapp Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="userWhatsappNumber" placeholder="Enter 10 digit whatsapp number" />
+                </div>
+                <div *ngIf="showConfirmMessageDialog">
+                    <div class="alert alert-info" role="alert">
+                        This profile has been already shared with you! Are you sure you want to resend again ?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" [hidden]="showConfirmMessageDialog">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" (click)="sendDetails()" class="btn btn-primary">Send</button>
+            </div>
+            <div class="modal-footer" *ngIf="showConfirmMessageDialog">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" (click)="resendProfile()" class="btn btn-primary">Resend Profile</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>

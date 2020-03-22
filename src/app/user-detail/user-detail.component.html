@@ -1,105 +1,105 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12 col-12 align-center border-bottom py-2">
-      <img src="{{selectedUser.profile_picture_url ? selectedUser.profile_picture_url :  'https://static.thenounproject.com/png/17241-200.png' }}" class=" card-img-top" style="height: 300px; width: 300px">
-    </div>
-  </div>
-  <div class="row my-2 py-2 border-bottom">
-    <div class="col-md-4 col-12">
-      <div class="container mt-4 border card card-body bg-light">
-        <h5>Personal Details</h5>
-        <div class="my-2">
-          <div class="pb-2">
-            <b>Name:</b> {{selectedUser.name ? selectedUser.name : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>SM-ID:</b> {{selectedUser.smid ? selectedUser.smid : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Date of birth:</b> {{selectedUser.dob ? selectedUser.dob : 'Not provided'}} ({{selectedUser.age ? selectedUser.age : 'Not provided'}} age)
-          </div>
+    <div class="row">
+        <div class="col-md-12 col-12 align-center border-bottom py-2">
+            <img src="{{selectedUser && selectedUser.profile_picture_url ? selectedUser.profile_picture_url :  'https://static.thenounproject.com/png/17241-200.png' }}" class=" card-img-top" style="height: 300px; width: 300px">
         </div>
-      </div>
     </div>
-    <div class="col-md-4 col-12">
-      <div class="container mt-4 border card card-body bg-light ">
-        <h5>Professional Details</h5>
-        <div class="my-2 ">
-          <div class="pb-2">
-            <b>Education:</b> {{selectedUser.education ? selectedUser.education : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Occupation:</b> {{selectedUser.occupation_location ? selectedUser.occupation_location : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Salary:</b> {{selectedUser.salary ? selectedUser.salary : 'Not provided'}}
-          </div>
+    <div class="row my-2 py-2 border-bottom">
+        <div class="col-md-4 col-12">
+            <div class="container mt-4 border card card-body bg-light">
+                <h5>Personal Details</h5>
+                <div class="my-2">
+                    <div class="pb-2">
+                        <b>Name:</b> {{selectedUser.name ? selectedUser.name : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>SM-ID:</b> {{selectedUser.smid ? selectedUser.smid : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Date of birth:</b> {{selectedUser.dob ? selectedUser.dob : 'Not provided'}} ({{selectedUser.age ? selectedUser.age : 'Not provided'}} age)
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-12">
-      <div class="container mt-4 border card card-body bg-light ">
-        <h5>Beliefs</h5>
-        <div class="my-2 ">
-          <div class="pb-2">
-            <b>Caste:</b> {{selectedUser.caste ? selectedUser.caste : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Raasi:</b> {{selectedUser.raasi ? selectedUser.raasi : 'Not provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Star:</b> {{selectedUser.star ? selectedUser.star : 'Not provided'}}
-          </div>
+        <div class="col-md-4 col-12">
+            <div class="container mt-4 border card card-body bg-light ">
+                <h5>Professional Details</h5>
+                <div class="my-2 ">
+                    <div class="pb-2">
+                        <b>Education:</b> {{selectedUser.education ? selectedUser.education : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Occupation:</b> {{selectedUser.occupation_location ? selectedUser.occupation_location : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Salary:</b> {{selectedUser.salary ? selectedUser.salary : 'Not provided'}}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="offset-md-2 col-md-4 col-12">
-      <div class="container mt-4 border card card-body bg-light ">
-        <h5>Contact Details</h5>
-        <div class="my-2 ">
-          <div class="pb-2">
-            <b>Phone Number:</b> {{selectedUser.phone_number ? selectedUser.phone_number : 'Not Provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Whatsapp Number:</b> {{selectedUser.whatsapp_number_primary ? selectedUser.whatsapp_number_primary : 'Not Provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Phone Number(secondary):</b> {{selectedUser.phone_number_secondary ? selectedUser.phone_number_secondary : 'Not Provided'}}
-          </div>
-          <div class="pb-2">
-            <b>Whatsapp Number(secondary):</b> {{selectedUser.whatsapp_number_secondary ? selectedUser.whatsapp_number_secondary : 'Not Provided'}}
-          </div>
+        <div class="col-md-4 col-12">
+            <div class="container mt-4 border card card-body bg-light ">
+                <h5>Beliefs</h5>
+                <div class="my-2 ">
+                    <div class="pb-2">
+                        <b>Caste:</b> {{selectedUser.caste ? selectedUser.caste : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Raasi:</b> {{selectedUser.raasi ? selectedUser.raasi : 'Not provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Star:</b> {{selectedUser.star ? selectedUser.star : 'Not provided'}}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-12">
-      <div class="container mt-4 border card card-body bg-light ">
-        <h5>Other details</h5>
-        <div class="my-2 ">
-          <div class="pb-2">
-            <b>Second Marriage:</b> {{ selectedUser.second_marriage ? selectedUser.second_marriage :'Not provided' }}
-          </div>
+        <div class="offset-md-2 col-md-4 col-12">
+            <div class="container mt-4 border card card-body bg-light ">
+                <h5>Contact Details</h5>
+                <div class="my-2 ">
+                    <div class="pb-2">
+                        <b>Phone Number:</b> {{selectedUser.phone_number ? selectedUser.phone_number : 'Not Provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Whatsapp Number:</b> {{selectedUser.whatsapp_number_primary ? selectedUser.whatsapp_number_primary : 'Not Provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Phone Number(secondary):</b> {{selectedUser.phone_number_secondary ? selectedUser.phone_number_secondary : 'Not Provided'}}
+                    </div>
+                    <div class="pb-2">
+                        <b>Whatsapp Number(secondary):</b> {{selectedUser.whatsapp_number_secondary ? selectedUser.whatsapp_number_secondary : 'Not Provided'}}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col-md-4 col-12">
+            <div class="container mt-4 border card card-body bg-light ">
+                <h5>Other details</h5>
+                <div class="my-2 ">
+                    <div class="pb-2">
+                        <b>Second Marriage:</b> {{ selectedUser.second_marriage ? selectedUser.second_marriage :'Not provided' }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="row my-2 py-2 border-bottom">
-    <div class="col-md-6 col-12">
-      <div class="container mt-4 border card card-body bg-light">
-        <h5>Jadagam URL</h5>
-        <div class="my-2">
-          <img src="{{selectedUser.jadagam_url ? selectedUser.jadagam_url :  'https://static.thenounproject.com/png/17241-200.png' }}" style="height: 300px; width: 300px">
+    <div class="row my-2 py-2 border-bottom">
+        <div class="col-md-6 col-12">
+            <div class="container mt-4 border card card-body bg-light">
+                <h5>Jadagam URL</h5>
+                <div class="my-2">
+                    <img src="{{selectedUser.jadagam_url ? selectedUser.jadagam_url :  'https://static.thenounproject.com/png/17241-200.png' }}" style="height: 300px; width: 300px">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-12">
-      <div class="container mt-4 border card card-body bg-light ">
-        <h5>Bio-data URL</h5>
-        <div class="my-2">
-          <img src="{{selectedUser.bio_data_url ? selectedUser.bio_data_url :  'https://static.thenounproject.com/png/17241-200.png' }}" style="height: 300px; width: 300px">
+        <div class="col-md-6 col-12">
+            <div class="container mt-4 border card card-body bg-light ">
+                <h5>Bio-data URL</h5>
+                <div class="my-2">
+                    <img src="{{selectedUser.bio_data_url ? selectedUser.bio_data_url :  'https://static.thenounproject.com/png/17241-200.png' }}" style="height: 300px; width: 300px">
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

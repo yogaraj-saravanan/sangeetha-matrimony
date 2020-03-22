@@ -1,7 +1,9 @@
 html,
 body {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
 }
 
 @import"~firebaseui/dist/firebaseui.css";
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
